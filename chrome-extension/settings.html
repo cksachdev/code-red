@@ -8,17 +8,18 @@
 <body ng-app="myApp" ng-controller="myController" ng-cloak class="container-fluid">
   <div class="align-items-center">
     <div class="col-8">
-      <h2 class="font-weight-bold mb-3 mt-5">
+      <h2 class="font-weight-bold mb-3 mt-2">
         Code RED - Settings
       </h2>
+      <hr>
       <form>
         <div class="form-row settings-block form-inline mb-4">
-          <div class="col-md-2 mb-3">
-            <button type="button" class="btn btn-primary" ng-click="addSiteSetting()">Create</button>
+          <div class="col-md-1 mb-3">
+            <button type="button" class="btn btn-primary" ng-click="addSiteSetting()" title="Create a new site">Create</button>
           </div>
           <div class="col-md-4 mb-3">
-            (or)&nbsp;&nbsp;&nbsp;Edit:
-            <select class="custom-select" ng-model="selectedSiteIndex">
+            (or) Choose existing:
+            <select class="custom-select select-setting" ng-model="selectedSiteIndex">
               <option ng-repeat="(index, value_type) in siteSettings" ng-value="index">
                 {{value_type.siteName}}
               </option>
@@ -27,13 +28,13 @@
         </div>
         <div class="form-row settings-block">
           <div class="col-md-4 mb-3">
-            <label>Site Name<sup class="reuired-indicator">*</sup></label>
-            <input type="text" class="form-control col-md-9" ng-model="siteSettings[selectedSiteIndex].siteName" placeholder="Diksha Prod...etc." required>
+            <label>Site name<sup class="reuired-indicator">*</sup></label>
+            <input type="text" class="form-control col-md-9" ng-model="siteSettings[selectedSiteIndex].siteName" placeholder="Instance name" required>
           </div>
           <div class="col-md-4 mb-3">
-            <label>Site URL<sup class="reuired-indicator">*</sup></label><br>
-            <input type="text" class="form-control col-md-9 d-md-inline" ng-model="siteSettings[selectedSiteIndex].siteUrl" placeholder="https://diksha.gov.in/grafana*" required>
-            &nbsp;&nbsp;&nbsp;<span ng-show="siteSettings.length > 1" ng-click="removeSiteSetting(selectedSiteIndex)" class="icon-add-remove remove">x</span>
+            <label>Site url<sup class="reuired-indicator">*</sup></label><br>
+            <input type="text" class="form-control col-md-9 d-md-inline" ng-model="siteSettings[selectedSiteIndex].siteUrl" placeholder="https://staging.ntp.net.in/grafana" required>
+            &nbsp;&nbsp;&nbsp;<span ng-show="siteSettings.length > 1" ng-click="removeSiteSetting(selectedSiteIndex)" class="icon-add-remove remove" title="delete site">x</span>
           </div>
         </div>
 
@@ -43,9 +44,9 @@
               <th scope="col">#</th>
               <th scope="col">Name<sup class="reuired-indicator">*</sup></th>
               <th scope="col">Element selector<sup class="reuired-indicator">*</sup></th>
-              <th scope="col">Value Type<sup class="reuired-indicator">*</sup></th>
-              <th scope="col">Container</th>
-              <th scope="col">Threshold<sup class="reuired-indicator">*</sup></th>
+              <th scope="col">Value type<sup class="reuired-indicator">*</sup></th>
+              <th scope="col">contains</th>
+              <th scope="col">Threshold value<sup class="reuired-indicator">*</sup></th>
               <th scope="col">Alert type<sup class="reuired-indicator">*</sup></th>
               <th scope="col" class="icon-header"></th>
             </tr>
@@ -78,8 +79,9 @@
             </tr>
           </tbody>
         </table>
-        <button type="button" class="btn btn-success" ng-click="updateSettings()">Update Settings</button>
+        <button type="button" class="btn btn-success" ng-click="updateSettings()" title="Update settings">Update settings</button>
       </form>
+      <hr>
     </div>
   </div>
 

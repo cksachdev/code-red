@@ -1,7 +1,8 @@
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 import os
 import pdb
+import subprocess
 
 from flask import Flask
 from flask_restful import Resource, Api
@@ -13,26 +14,26 @@ api = Api(app)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(24, GPIO.OUT)
+GPIO.setup(23, GPIO.IN)
 
 class Pinging(Resource):
   def get(self):
-    # GPIO.output(24, True)
+
     alert_type = request.args.get("type")
     mp3_process = subprocess.Popen(['omxplayer', alert_type+'.mp3'])
 
+    time.sleep(2)
     player_time = 0
     while player_time < 50:
       if GPIO.input(23):
         print("Motion Detected...")
-        player_time = 50;
-        time.sleep(3)
-        subprocess.call(['killall', 'omxplayer'])
-      time.sleep(0.5)
-      player_time++;
+        player_time = 50
+        time.sleep(2)
+        mp3_process.kill()
+        os.system("killall omxplayer.bin")
 
-    # pdb.set_trace()
-    # time.sleep(0.5)
-    # GPIO.output(24, False)
+      time.sleep(0.5)
+      player_time+=1
 
     return {'status':'success'}
 
