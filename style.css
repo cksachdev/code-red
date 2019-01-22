@@ -1,0 +1,29 @@
+.settings-block{
+  margin-bottom: 20px;
+}
+
+.icon-header {
+  width: 85px;
+}
+
+.icon-add-remove {
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 5px;
+  height: 26px;
+  width: 25px;
+  display: inline-block;
+  line-height: 13px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+}
+
+.icon-add-remove.add{
+  color: #00ab00;
+  margin-left: 5px;
+}
+
+.icon-add-remove.remove{
+  color: #f00;
+}

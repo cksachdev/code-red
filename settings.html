@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Code RED - Settings</title>
+  <link rel="stylesheet" href="bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" crossorigin="anonymous">
+</head>
+<body ng-app="myApp" ng-controller="myController" ng-cloak class="container-fluid">
+  <div class="align-items-center">
+    <div class="col-8">
+      <h2 class="font-weight-bold mb-3 mt-5">
+        Code RED - Settings
+      </h2>
+      <form>
+        <div class="form-row settings-block form-inline mb-4">
+          <div class="col-md-2 mb-3">
+            <button type="button" class="btn btn-primary" ng-click="addSiteSetting()">Create</button>
+          </div>
+          <div class="col-md-4 mb-3">
+            (or)&nbsp;&nbsp;&nbsp;Edit:
+            <select class="custom-select" ng-model="selectedSiteIndex">
+              <option ng-repeat="(index, value_type) in siteSettings" ng-value="index">
+                {{value_type.siteName}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row settings-block">
+          <div class="col-md-4 mb-3">
+            <label>Site Name<sup class="reuired-indicator">*</sup></label>
+            <input type="text" class="form-control col-md-9" ng-model="siteSettings[selectedSiteIndex].siteName" placeholder="Diksha Prod...etc." required>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>Site URL<sup class="reuired-indicator">*</sup></label><br>
+            <input type="text" class="form-control col-md-9 d-md-inline" ng-model="siteSettings[selectedSiteIndex].siteUrl" placeholder="https://diksha.gov.in/grafana*" required>
+            &nbsp;&nbsp;&nbsp;<span ng-show="siteSettings.length > 1" ng-click="removeSiteSetting(selectedSiteIndex)" class="icon-add-remove remove">x</span>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name<sup class="reuired-indicator">*</sup></th>
+              <th scope="col">Element selector<sup class="reuired-indicator">*</sup></th>
+              <th scope="col">Value Type<sup class="reuired-indicator">*</sup></th>
+              <th scope="col">Container</th>
+              <th scope="col">Threshold<sup class="reuired-indicator">*</sup></th>
+              <th scope="col">Alert type<sup class="reuired-indicator">*</sup></th>
+              <th scope="col" class="icon-header"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="setting in siteSettings[selectedSiteIndex].allSettings track by $index">
+              <th scope="row">{{$index + 1}}</th>
+              <td>
+                <input type="text" ng-model="setting.name" class="form-control" placeholder="500 error notifier"/>
+              </td>
+              <td>
+                <input type="text" ng-model="setting.selector" class="form-control" placeholder=".500-error or #500-error etc."/>
+              </td>
+              <td>
+                <select class="custom-select" ng-model="setting.valueType" ng-options="valueType as valueType for valueType in valueTypes"></select>
+              </td>
+              <td>
+                <input type="text" ng-model="setting.contains" class="form-control" placeholder="500">
+              </td>
+              <td>
+                <input type="text" ng-model="setting.threshold" class="form-control" placeholder="2">
+              </td>
+              <td>
+                <select class="custom-select" ng-model="setting.alertType" ng-options="alertType as alertType for alertType in alertTypes"></select>
+              </td>
+              <td>
+                <span ng-show="siteSettings[selectedSiteIndex].allSettings.length > 1" ng-click="removeSetting($index)" class="icon-add-remove remove">x</span>
+                <span ng-show="$last" ng-click="addSetting()" class="icon-add-remove add">+</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-success" ng-click="updateSettings()">Update Settings</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="angular.min.js" type="text/javascript"></script>
+  <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
