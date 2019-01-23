@@ -7,7 +7,7 @@
 </head>
 <body ng-app="myApp" ng-controller="myController" ng-cloak class="container-fluid">
   <div class="align-items-center">
-    <div class="col-8">
+    <div class="col-10">
       <h2 class="font-weight-bold mb-3 mt-2">
         Code RED - Settings
       </h2>
@@ -61,7 +61,7 @@
                 <input type="text" ng-model="setting.selector" class="form-control" placeholder=".500-error or #500-error etc."/>
               </td>
               <td>
-                <select class="custom-select" ng-model="setting.valueType" ng-options="valueType as valueType for valueType in valueTypes"></select>
+                <select class="custom-select" ng-model="setting.valueType select-setting" ng-options="valueType as valueType for valueType in valueTypes"></select>
               </td>
               <td>
                 <input type="text" ng-model="setting.contains" class="form-control" placeholder="500">
@@ -70,7 +70,7 @@
                 <input type="text" ng-model="setting.threshold" class="form-control" placeholder="2">
               </td>
               <td>
-                <select class="custom-select" ng-model="setting.alertType" ng-options="alertType as alertType for alertType in alertTypes"></select>
+                <select class="custom-select select-setting" ng-model="setting.alertType" ng-options="alertType as alertType for alertType in alertTypes"></select>
               </td>
               <td>
                 <span ng-show="siteSettings[selectedSiteIndex].allSettings.length > 1" ng-click="removeSetting($index)" class="icon-add-remove remove">x</span>
