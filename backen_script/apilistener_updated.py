@@ -20,19 +20,20 @@ class Pinging(Resource):
   def get(self):
 
     alert_type = request.args.get("type")
-    mp3_process = subprocess.Popen(['omxplayer', alert_type+'.mp3'])
+    mp3_process = subprocess.Popen(['omxplayer', '--loop', alert_type+'.mp3'])
 
     time.sleep(2)
     player_time = 0
-    while player_time < 50:
+    while player_time < 300:
       if GPIO.input(23):
         print("Motion Detected...")
-        player_time = 50
+        player_time = 300
         time.sleep(2)
         mp3_process.kill()
-        os.system("killall omxplayer.bin")
+        os.system("killall omxplayer.bin &")
+        os.system("killall omxplayer &")
 
-      time.sleep(0.5)
+      time.sleep(1)
       player_time+=1
 
     return {'status':'success'}
