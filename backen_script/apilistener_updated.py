@@ -24,16 +24,16 @@ class Pinging(Resource):
 
     time.sleep(2)
     player_time = 0
-    while player_time < 300:
+    while player_time < 600:
       if GPIO.input(23):
         print("Motion Detected...")
-        player_time = 300
-        time.sleep(2)
+        player_time = 650
+        time.sleep(0.1)
         mp3_process.kill()
         os.system("killall omxplayer.bin &")
         os.system("killall omxplayer &")
 
-      time.sleep(1)
+      time.sleep(0.5)
       player_time+=1
 
     return {'status':'success'}
