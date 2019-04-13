@@ -35,7 +35,7 @@ function init(){
                 containsLetter = false
               }
               if (containsLetter) {
-                var errorPercent = value.childNodes[3].textContent.trim()
+                var errorPercent = value.childNodes[4].textContent.trim()
                 var errorPercentFloat = parseFloat(errorPercent)
                 var prevErrorPercentFloat = notableErrors[alertSetting.name]
                 prevErrorPercentFloat = prevErrorPercentFloat == null ? 0.0 : prevErrorPercentFloat
@@ -93,6 +93,6 @@ function init(){
 
     }
     
-  }, 2000)
+  }, 5000)
   
 }
