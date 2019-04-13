@@ -35,7 +35,8 @@ function init(){
                 containsLetter = false
               }
               if (containsLetter) {
-                var errorPercent = value.childNodes[4].textContent.trim()
+                var errorPercentElemIndex = !!value.childNodes[4] ? 4 : 3
+                var errorPercent = value.childNodes[errorPercentElemIndex].textContent.trim()
                 var errorPercentFloat = parseFloat(errorPercent)
                 var prevErrorPercentFloat = notableErrors[alertSetting.name]
                 prevErrorPercentFloat = prevErrorPercentFloat == null ? 0.0 : prevErrorPercentFloat
