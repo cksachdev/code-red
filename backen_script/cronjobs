@@ -1,0 +1,15 @@
+#15 14 * * * /opt/vc/bin/tvservice --off
+
+#43 13 * * * /opt/vc/bin/tvservice --preferred
+
+#14 14 * * * echo ´standby 0´ | cec-client -s -d 1
+
+#16 14 * * * echo ´on 0´ | cec-client -s -d 1
+
+#17 14 * * * echo ´as´ | cec-client -s -d 1
+
+0 9 * * * /usr/bin/vcgencmd display_power 1
+0 9 * * * /home/pi/startup.sh
+
+0 19 * * * /usr/bin/vcgencmd display_power 0
+0 19 * * * /usr/bin/killall python3 && /usr/bin/killall chromium-browser
