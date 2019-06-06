@@ -14,8 +14,11 @@ chrome.storage.sync.get(['codeRed'], function(items) {
 
 function init(){
   for (var i = siteSettings.length - 1; i >= 0; i--) {
-    alertSettings = alertSettings.concat(siteSettings[i].allSettings)
-
+    var siteUrl = siteSettings[i].siteUrl.split("?")[0]
+    var currentUrl = window.location.origin + window.location.pathname
+    if (currentUrl.includes(siteUrl)) {
+      alertSettings = alertSettings.concat(siteSettings[i].allSettings)
+    }
   }
 
   setTimeout(() => {
@@ -23,20 +26,19 @@ function init(){
       var alertSetting = alertSettings[i]
 
       if (alertSetting.selector.trim().length > 1) {
-        $(alertSetting.selector)[1].addEventListener("DOMSubtreeModified",function(){
+        $(alertSetting.selector)[0].addEventListener("DOMSubtreeModified",function(){
 
           var alertSetting = this;
           setTimeout(() => {
             for (var i = document.getElementsByClassName("graph-legend-series").length - 1; i >= 0; i--) {
               var value = document.getElementsByClassName("graph-legend-series")[i]
-              var errorCode = value.childNodes[1].textContent.trim()
+              var errorCode = value.childNodes[0].textContent.trim()
               containsLetter = true
               if (alertSetting.contains.trim().length > 0 && !errorCode.includes(alertSetting.contains.trim())) {
                 containsLetter = false
               }
               if (containsLetter) {
-                var errorPercentElemIndex = !!value.childNodes[4] ? 4 : 3
-                var errorPercent = value.childNodes[errorPercentElemIndex].textContent.trim()
+                var errorPercent = $(value).find(alertSetting.selector)[0].textContent.trim()
                 var errorPercentFloat = parseFloat(errorPercent)
                 var prevErrorPercentFloat = notableErrors[alertSetting.name]
                 prevErrorPercentFloat = prevErrorPercentFloat == null ? 0.0 : prevErrorPercentFloat
